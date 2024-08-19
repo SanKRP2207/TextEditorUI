@@ -3,7 +3,7 @@ import JoditEditor from 'jodit-react';
 import Navbar from './Navbar';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-const BackLink = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+const BackLink = process.env.REACT_APP_API_URL;
 
 
 function TextEditor() {
@@ -12,7 +12,6 @@ function TextEditor() {
     const [id, setEditingContentId] = useState(null);
 
     useEffect(() => {
-        // Fetch all contents for the logged-in user
         const fetchContents = async () => {
             try {
                 const token = localStorage.getItem('token');
@@ -42,22 +41,19 @@ function TextEditor() {
             const user_id = decoded.user.id;
 
             if (id) {
-                // Update existing content
                 await axios.put(`${BackLink}/content/${id}`, { user_id, text });
                 alert('Content updated successfully');
             } else {
-                // Save new content
                 const response = await axios.post(`${BackLink}/savecontent`, { user_id, content: text });
-                setContents([...contents, response.data]); // Add the new content to the list
+                setContents([...contents, response.data]); 
                 alert('Content saved successfully');
             }
 
-            // Refresh the content list after save or update
             const refreshedContents = await axios.get(`${BackLink}/user/${user_id}/contents`);
             setContents(refreshedContents.data);
 
             setEditingContentId(null);
-            setText(''); // Clear the editor after saving
+            setText('');
         } catch (error) {
             console.error('Error saving content:', error);
         }
@@ -66,8 +62,8 @@ function TextEditor() {
     const handleEdit = async (id) => {
         try {
             const response = await axios.get(`${BackLink}/content/${id}`);
-            setText(response.data.text); // Set the text to the editor
-            setEditingContentId(id); // Set the ID to indicate we're editing an existing content
+            setText(response.data.text); 
+            setEditingContentId(id);
         } catch (error) {
             console.error('Error loading content:', error);
         }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Rings } from 'react-loader-spinner';
-const BackLink = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+const BackLink = process.env.REACT_APP_API_URL;
 
 
 function SignUp() {
@@ -21,7 +21,7 @@ function SignUp() {
       await axios.post(`${BackLink}/signup`, formData);
       navigate('/');
     } catch (error) {
-      console.error('There was an error registering!', error);
+      console.error('There was an error signing Up!', error);
     } finally {
       setLoading(false);
     }

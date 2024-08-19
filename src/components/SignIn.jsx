@@ -1,9 +1,8 @@
 import React, { useState, } from 'react'
-// require('dotenv').config();
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Rings } from 'react-loader-spinner';
-const BackLink = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+const BackLink = process.env.REACT_APP_API_URL;
 
 
 function SignIn() {
