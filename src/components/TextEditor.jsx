@@ -3,7 +3,7 @@ import JoditEditor from 'jodit-react';
 import Navbar from './Navbar';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-const BackLink = process.env.REACT_APP_API_URL;
+const BackLink = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 
 function TextEditor() {
